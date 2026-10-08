@@ -40,9 +40,23 @@ export const ImportExportModal: React.FC<ImportExportModalProps> = ({
     setRawText(formatted);
   };
 
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+
+    if (file.name.endsWith('.xlsx') || file.name.endsWith('.xls')) {
+      try {
+        const { parseExcelFile } = await import('../utils/excelHelper');
+        const res = await parseExcelFile(file, importClass);
+        if (res.students.length > 0) {
+          onImport(res.students, importMode);
+          onClose();
+          return;
+        }
+      } catch (err) {
+        console.warn('Excel parse failed:', err);
+      }
+    }
 
     const reader = new FileReader();
     reader.onload = (event) => {

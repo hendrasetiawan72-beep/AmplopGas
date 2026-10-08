@@ -1,7 +1,7 @@
 import { KopData, PaperSizeConfig, Student, EnvelopeSettings } from '../types';
 
 export const OFFICIAL_LOGO_URL =
-  'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh14eQT9MWn4-D1hdb8FisPsg0qK1iIvxXbMg0RGCvXFzUVWUt_KTiOWcEBzrJYxqALWV7_RPeowvTNfbyw-tbCeDb40lvY5jm_lWN5_jjeZko2SF82_wLRcW2-rBs6fWcauvugbRXBRODAeDb0FBkV81rSrgh6stKQG9ZWf5MU3qxTwiqdSEO9AaJ1EbUX/s480/44857.png';
+  'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjSl3c440H1cWt89juZEb4LojehtllUa7RQvrYFzuxuCoerjRORl7eYBGRWuwOwN9gtEzUVkQJjOzRY0S1AazMnzmQBWvI0O0x9BLMA7srvriwOgb5IfHWOvGnhyphenhyphenq2Sbqc2nxAoKCDMrIcxs5rw8_uGvVljZxlX-XHdTQe2YkBUh8_jS3pOPCvMUWdHsx40/s506/50562.png';
 
 export const PAPER_SIZES: PaperSizeConfig[] = [
   {
@@ -28,11 +28,13 @@ export const PAPER_SIZES: PaperSizeConfig[] = [
 ];
 
 export const DEFAULT_KOP_DATA: KopData = {
+  kopMode: 'standard', // 'standard' (logo + text) or 'image-banner' (full kop banner)
+  kopImageUrl: OFFICIAL_LOGO_URL,
   majlis: 'MAJLIS PENDIDIKAN DASAR DAN MENENGAH',
   daerah: 'DAERAH MUHAMMADIYAH BATANG',
   namaSekolah: 'SMK MUHAMMADIYAH BAWANG',
   statusAkreditasi: 'TERAKREDITASI "A"',
-  showAkreditasi: false, // Image 2 doesn't show it, but Image 1 does - customizable!
+  showAkreditasi: false,
   alamat: 'Jl. Bawang-Sukorejo Km 01 Ds. Jlamprang Kec. Bawang Kab. Batang',
   email: 'smkmutu1@yahoo.co.id',
   website: 'www.smkmuhbawang.sch.id',

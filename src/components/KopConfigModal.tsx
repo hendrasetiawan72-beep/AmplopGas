@@ -85,9 +85,61 @@ export const KopConfigModal: React.FC<KopConfigModalProps> = ({
 
         {/* Body Form */}
         <form onSubmit={handleSubmit} className="p-5 overflow-y-auto flex-1 space-y-4 text-xs">
-          {/* Logo Section */}
+          {/* Pilihan Mode Kop: Logo+Teks atau Gambar Kop Penuh */}
+          <div className="p-3.5 bg-purple-50/70 rounded-xl border border-purple-200 space-y-2">
+            <label className="font-bold text-slate-800 text-xs block">
+              Format Tampilan Kop Surat:
+            </label>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <label
+                className={`p-2.5 rounded-xl border cursor-pointer flex items-start gap-2.5 transition ${
+                  (formData.kopMode || 'standard') === 'standard'
+                    ? 'bg-white border-purple-600 ring-2 ring-purple-600/20 font-semibold'
+                    : 'bg-white/60 border-slate-200 text-slate-600'
+                }`}
+              >
+                <input
+                  type="radio"
+                  name="kopMode"
+                  checked={(formData.kopMode || 'standard') === 'standard'}
+                  onChange={() => handleChange('kopMode', 'standard')}
+                  className="mt-0.5 text-purple-700 focus:ring-purple-600"
+                />
+                <div>
+                  <div className="font-bold text-slate-800 text-xs">Logo di Kiri + Teks Resmi</div>
+                  <div className="text-[11px] text-slate-500 font-normal">
+                    Logo SMK di sisi kiri dengan teks ketikan resmi di tengah (Standar sekolah).
+                  </div>
+                </div>
+              </label>
+
+              <label
+                className={`p-2.5 rounded-xl border cursor-pointer flex items-start gap-2.5 transition ${
+                  formData.kopMode === 'image-banner'
+                    ? 'bg-white border-purple-600 ring-2 ring-purple-600/20 font-semibold'
+                    : 'bg-white/60 border-slate-200 text-slate-600'
+                }`}
+              >
+                <input
+                  type="radio"
+                  name="kopMode"
+                  checked={formData.kopMode === 'image-banner'}
+                  onChange={() => handleChange('kopMode', 'image-banner')}
+                  className="mt-0.5 text-purple-700 focus:ring-purple-600"
+                />
+                <div>
+                  <div className="font-bold text-slate-800 text-xs">Gambar Kop Penuh (Banner)</div>
+                  <div className="text-[11px] text-slate-500 font-normal">
+                    Menampilkan gambar kop utuh membentang di bagian atas amplop.
+                  </div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          {/* Logo / Image Section */}
           <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200 flex flex-col sm:flex-row items-center gap-4">
-            <div className="flex-shrink-0 p-2 bg-white rounded-xl border border-slate-200 flex items-center justify-center">
+            <div className="flex-shrink-0 p-2 bg-white rounded-xl border border-slate-200 flex items-center justify-center max-w-[120px]">
               <SchoolLogo
                 src={formData.logoUrl}
                 base64={formData.logoBase64}
@@ -95,13 +147,13 @@ export const KopConfigModal: React.FC<KopConfigModalProps> = ({
               />
             </div>
             <div className="flex-1 space-y-1.5 text-center sm:text-left">
-              <div className="font-bold text-slate-800 text-xs">Logo Kop Surat</div>
+              <div className="font-bold text-slate-800 text-xs">Gambar Logo / Kop Resmi</div>
               <p className="text-slate-500 text-[11px]">
-                Logo resmi tersimpan lokal (Base64) agar selalu tajam saat cetak atau unduh PDF.
+                Menggunakan gambar resmi SMK Muhammadiyah Bawang (50562.png) atau unggah gambar sendiri.
               </p>
               <div className="flex flex-wrap items-center gap-2 pt-1 justify-center sm:justify-start">
                 <label className="px-3 py-1 bg-white border border-slate-300 hover:border-purple-600 hover:text-purple-700 rounded-md font-semibold cursor-pointer transition text-[11px] flex items-center gap-1.5 shadow-xs">
-                  <Upload className="w-3.5 h-3.5" /> Ganti Logo (PNG/JPG)
+                  <Upload className="w-3.5 h-3.5" /> Ganti Gambar (PNG/JPG)
                   <input
                     type="file"
                     accept="image/*"
@@ -115,7 +167,7 @@ export const KopConfigModal: React.FC<KopConfigModalProps> = ({
                     onClick={() => handleChange('logoBase64', undefined)}
                     className="px-2.5 py-1 text-slate-600 hover:text-rose-600 text-[11px] font-medium"
                   >
-                    Hapus Logo Kustom
+                    Reset Gambar Kustom
                   </button>
                 )}
               </div>

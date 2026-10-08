@@ -18,6 +18,8 @@ export interface PaperSizeConfig {
 export type EnvelopeLayoutStyle = 'official-box' | 'compact-label' | 'minimal-table';
 
 export interface KopData {
+  kopMode?: 'standard' | 'image-banner';
+  kopImageUrl?: string;
   majlis: string;
   daerah: string;
   namaSekolah: string;

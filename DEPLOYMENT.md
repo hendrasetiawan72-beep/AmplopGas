@@ -100,6 +100,36 @@ npm install -g vercel
 vercel --prod
 ```
 
+### Solusi Jika Muncul Error Lockfile Bun di Vercel:
+Jika Anda melihat error seperti:
+`error: bun.lock was generated with a newer version of bun, please upgrade bun to at least 1.2.0`
+
+Ada 2 opsi mudah untuk menyelesaikannya:
+
+**Opsi 1 (Paling Cepat & Dijamin Sukses - Pakai NPM):**
+Hapus `bun.lock` agar Vercel menggunakan `npm` standar:
+```bash
+rm -f bun.lock
+npm install
+git add -A
+git commit -m "use npm lockfile"
+git push
+```
+
+**Opsi 2 (Tetap Pakai Bun):**
+1. Buka dashboard proyek di **Vercel** &rarr; **Settings** &rarr; **Environment Variables**.
+2. Tambahkan variable:
+   - Key: `BUN_VERSION`
+   - Value: `1.2.4` (atau versi bun di komputer Anda, misal `1.2.0` / `1.4.2`).
+3. Jalankan perintah di komputer lokal Anda:
+```bash
+rm bun.lock
+bun install
+git add bun.lock
+git commit -m "regenerate bun.lock"
+git push
+```
+
 ---
 
 ## 4. Cara Deploy ke Cloudflare Pages

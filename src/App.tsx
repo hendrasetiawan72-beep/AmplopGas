@@ -8,6 +8,7 @@ import {
 } from './constants/defaultData';
 import { EnvelopeItem } from './components/EnvelopeItem';
 import { EnvelopePrintContainer } from './components/EnvelopePrintContainer';
+import { DataInputBar } from './components/DataInputBar';
 import { StudentForm } from './components/StudentForm';
 import { StudentTable } from './components/StudentTable';
 import { ImportExportModal } from './components/ImportExportModal';
@@ -391,30 +392,38 @@ export default function App() {
       <main className="no-print flex-1 max-w-7xl w-full mx-auto p-3 sm:p-4 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-5">
         {/* LEFT PANEL: Form, Options, & Student Table (Col 5) */}
         <div
-          className={`lg:col-span-5 flex flex-col gap-4 ${
+          className={`lg:col-span-5 flex flex-col gap-3.5 ${
             activeMobileTab === 'form' ? 'block' : 'hidden lg:flex'
           }`}
         >
-          {/* Envelope & Paper Configuration Card */}
+          {/* BILAH MEMASUKKAN DATA (MANUAL & DARI FILE EXCEL) */}
+          <DataInputBar
+            onAddStudent={handleAddStudent}
+            onImportStudents={handleImportStudents}
+            nextSuggestedAbsen={nextSuggestedAbsen}
+            defaultKelas={settings.defaultKelas}
+          />
+
+          {/* Envelope, Kop & Paper Configuration Card */}
           <div className="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
                 <Layers className="w-3.5 h-3.5 text-purple-700" />
-                Format Kertas & Desain
+                Format Kertas & Kop Amplop
               </span>
               <button
                 onClick={() => setIsImportModalOpen(true)}
-                className="text-xs font-semibold text-purple-700 hover:text-purple-900 bg-purple-50 hover:bg-purple-100 border border-purple-200 px-2.5 py-1 rounded-md flex items-center gap-1 transition cursor-pointer"
+                className="text-xs font-semibold text-purple-700 hover:text-purple-900 bg-purple-50 hover:bg-purple-100 border border-purple-200 px-2 py-0.5 rounded-md flex items-center gap-1 transition cursor-pointer"
               >
-                <Upload className="w-3 h-3" /> Impor Siswa (CSV)
+                <Upload className="w-3 h-3" /> Impor CSV / Paste
               </button>
             </div>
 
-            <div className="grid grid-cols-2 gap-2.5 text-xs">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
               {/* Paper Size Selector */}
               <div>
                 <label className="block text-[11px] font-semibold text-slate-600 mb-1">
-                  Ukuran Amplop / Kertas
+                  Ukuran Amplop
                 </label>
                 <select
                   value={settings.paperSizeId}
@@ -424,11 +433,11 @@ export default function App() {
                       paperSizeId: e.target.value as any,
                     }))
                   }
-                  className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-purple-600 font-medium"
+                  className="w-full px-2 py-1.5 bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-purple-600 font-medium text-xs"
                 >
                   {PAPER_SIZES.map((p) => (
                     <option key={p.id} value={p.id}>
-                      {p.name}
+                      {p.name.split(' (')[0]}
                     </option>
                   ))}
                 </select>
@@ -437,7 +446,7 @@ export default function App() {
               {/* Layout Style */}
               <div>
                 <label className="block text-[11px] font-semibold text-slate-600 mb-1">
-                  Gaya Badan Amplop
+                  Gaya Amplop
                 </label>
                 <select
                   value={settings.layoutStyle}
@@ -447,21 +456,41 @@ export default function App() {
                       layoutStyle: e.target.value as any,
                     }))
                   }
-                  className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-purple-600 font-medium"
+                  className="w-full px-2 py-1.5 bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-purple-600 font-medium text-xs"
                 >
                   <option value="official-box">
-                    Kotak Resmi (Sesuai Gambar 2)
+                    Kotak Resmi (Gb 2)
                   </option>
                   <option value="minimal-table">
-                    Format Baris (NAMA & ABSEN)
+                    Baris NAMA & NO
                   </option>
+                </select>
+              </div>
+
+              {/* Kop Style Mode */}
+              <div>
+                <label className="block text-[11px] font-semibold text-slate-600 mb-1">
+                  Format Kop
+                </label>
+                <select
+                  value={kop.kopMode || 'standard'}
+                  onChange={(e) =>
+                    setKop((prev) => ({
+                      ...prev,
+                      kopMode: e.target.value as any,
+                    }))
+                  }
+                  className="w-full px-2 py-1.5 bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-purple-600 font-medium text-xs"
+                >
+                  <option value="standard">Logo di Kiri + Teks</option>
+                  <option value="image-banner">Gambar Kop Penuh</option>
                 </select>
               </div>
             </div>
 
             {/* Quick Default Class setting */}
             <div className="flex items-center justify-between pt-1 border-t border-slate-100 text-xs">
-              <span className="text-slate-500 font-medium">Kelas Bawaan:</span>
+              <span className="text-slate-500 font-medium">Kelas / Rombel:</span>
               <input
                 type="text"
                 value={settings.defaultKelas}
@@ -470,20 +499,22 @@ export default function App() {
                   setSettings((prev) => ({ ...prev, defaultKelas: val }));
                 }}
                 placeholder="XI TKR 1"
-                className="w-32 px-2 py-0.5 bg-slate-50 border border-slate-300 rounded-md text-right font-bold text-slate-800"
+                className="w-28 px-2 py-0.5 bg-slate-50 border border-slate-300 rounded-md text-right font-bold text-slate-800"
               />
             </div>
           </div>
 
-          {/* Add / Edit Student Form */}
-          <StudentForm
-            onAddStudent={handleAddStudent}
-            editingStudent={editingStudent}
-            onUpdateStudent={handleUpdateStudent}
-            onCancelEdit={() => setEditingStudent(null)}
-            defaultKelas={settings.defaultKelas}
-            nextSuggestedAbsen={nextSuggestedAbsen}
-          />
+          {/* Edit Student Form (only visible when a student is currently being edited) */}
+          {editingStudent && (
+            <StudentForm
+              onAddStudent={handleAddStudent}
+              editingStudent={editingStudent}
+              onUpdateStudent={handleUpdateStudent}
+              onCancelEdit={() => setEditingStudent(null)}
+              defaultKelas={settings.defaultKelas}
+              nextSuggestedAbsen={nextSuggestedAbsen}
+            />
+          )}
 
           {/* Students List Table */}
           <div className="flex-1 min-h-[300px]">

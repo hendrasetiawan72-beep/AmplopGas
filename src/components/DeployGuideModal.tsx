@@ -194,6 +194,28 @@ npm i -g vercel
 vercel --prod`}
                 </pre>
               </div>
+
+              {/* Troubleshooting Bun Lockfile */}
+              <div className="p-3 bg-amber-50 rounded-xl border border-amber-200">
+                <h4 className="font-bold text-amber-900 mb-1">
+                  Tips Mengatasi Error Bun Lockfile di Vercel:
+                </h4>
+                <p className="text-slate-600 mb-2">
+                  Jika build di Vercel gagal karena format <code>bun.lock</code> versi baru, jalankan:
+                </p>
+                <pre className="bg-slate-900 text-amber-300 p-2.5 rounded-lg font-mono text-[10.5px]">
+{`# Solusi 1: Regenerate bun.lock di lokal
+rm bun.lock
+bun install
+git add bun.lock
+git commit -m "regenerate bun.lock"
+git push
+
+# Solusi 2 (Gunakan npm standar di Vercel):
+rm -f bun.lock && npm install
+git add -A && git commit -m "use npm" && git push`}
+                </pre>
+              </div>
             </div>
           )}
 

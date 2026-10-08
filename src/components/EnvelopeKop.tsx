@@ -8,6 +8,31 @@ interface EnvelopeKopProps {
 }
 
 export const EnvelopeKop: React.FC<EnvelopeKopProps> = ({ kop }) => {
+  if (kop.kopMode === 'image-banner' && (kop.kopImageUrl || kop.logoBase64 || kop.logoUrl)) {
+    const bannerSrc = kop.logoBase64 || kop.kopImageUrl || kop.logoUrl;
+    return (
+      <header className="w-full text-black">
+        <div className="w-full flex items-center justify-center mb-1">
+          <img
+            src={bannerSrc}
+            alt="Kop Surat SMK Muhammadiyah Bawang"
+            crossOrigin="anonymous"
+            className="w-full max-h-[35mm] object-contain select-none"
+          />
+        </div>
+        {/* Optional divider line if selected */}
+        {kop.lineStyle === 'double' ? (
+          <div className="w-full flex flex-col gap-[1.5px] mt-1 mb-2">
+            <div className="w-full h-[2px] bg-black"></div>
+            <div className="w-full h-[1px] bg-black"></div>
+          </div>
+        ) : kop.lineStyle === 'single' ? (
+          <div className="w-full h-[1.5px] bg-black mt-1 mb-2"></div>
+        ) : null}
+      </header>
+    );
+  }
+
   return (
     <header className="w-full text-black">
       {/* Header Grid: Logo Left, Text Centered */}
