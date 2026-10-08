@@ -65,7 +65,8 @@ export async function generateDirectPdf(
   elementIds: string[],
   paperConfig: PaperSizeConfig,
   fileName: string,
-  onProgress?: (current: number, total: number) => void
+  onProgress?: (current: number, total: number) => void,
+  rotate180: boolean = false
 ): Promise<void> {
   const isLandscape = paperConfig.widthMm >= paperConfig.heightMm;
   const orientation = isLandscape ? 'landscape' : 'portrait';
@@ -101,7 +102,8 @@ export async function generateDirectPdf(
       onclone: (clonedDoc) => {
         const clonedEl = clonedDoc.getElementById(id);
         if (clonedEl) {
-          clonedEl.style.transform = 'none';
+          clonedEl.style.transform = rotate180 ? 'rotate(180deg)' : 'none';
+          clonedEl.style.transformOrigin = 'center center';
           clonedEl.style.boxShadow = 'none';
           clonedEl.style.border = 'none';
           clonedEl.style.margin = '0';

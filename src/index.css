@@ -70,6 +70,12 @@
     break-inside: avoid !important;
   }
 
+  /* Rotasi 180 derajat untuk printer Epson / tray belakang yang membalik kertas */
+  .envelope-page.print-rotate-180 {
+    transform: rotate(180deg) !important;
+    transform-origin: center center !important;
+  }
+
   .envelope-page:last-child {
     page-break-after: auto !important;
     break-after: auto !important;

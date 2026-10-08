@@ -43,4 +43,5 @@ export interface EnvelopeSettings {
   showBoxAbsen: boolean;
   showBoxWali: boolean;
   fontSizeMultiplier: number; // 0.9 to 1.2
+  rotate180: boolean; // Rotate 180 degrees for Epson/rear tray printers
 }

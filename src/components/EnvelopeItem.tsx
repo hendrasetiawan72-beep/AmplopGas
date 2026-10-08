@@ -28,8 +28,8 @@ export const EnvelopeItem: React.FC<EnvelopeItemProps> = ({
     <div
       id={id}
       className={`envelope-page relative bg-white text-black flex flex-col justify-between overflow-hidden select-text ${
-        isPrintVersion ? '' : 'shadow-lg border border-slate-200'
-      }`}
+        settings.rotate180 ? 'print-rotate-180' : ''
+      } ${isPrintVersion ? '' : 'shadow-lg border border-slate-200'}`}
       style={{
         width: `${paper.widthMm}mm`,
         height: `${paper.heightMm}mm`,
@@ -42,6 +42,8 @@ export const EnvelopeItem: React.FC<EnvelopeItemProps> = ({
         backgroundColor: '#ffffff',
         pageBreakInside: 'avoid',
         breakInside: 'avoid',
+        transform: isPrintVersion && settings.rotate180 ? 'rotate(180deg)' : undefined,
+        transformOrigin: isPrintVersion && settings.rotate180 ? 'center center' : undefined,
       }}
     >
       {/* 1. KOP SURAT ATAS */}

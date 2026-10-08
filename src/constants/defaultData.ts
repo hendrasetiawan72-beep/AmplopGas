@@ -52,6 +52,7 @@ export const DEFAULT_SETTINGS: EnvelopeSettings = {
   showBoxAbsen: true,
   showBoxWali: true,
   fontSizeMultiplier: 1.0,
+  rotate180: false,
 };
 
 export const SAMPLE_STUDENTS: Student[] = [
