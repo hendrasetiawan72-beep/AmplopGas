@@ -15,8 +15,8 @@
 
 @media print {
   @page {
-    size: 297mm 210mm; /* Default A4 Landscape */
-    margin: 10mm;
+    size: 220mm 110mm; /* Standar DL Envelope */
+    margin: 5mm;
   }
 
   html, body {

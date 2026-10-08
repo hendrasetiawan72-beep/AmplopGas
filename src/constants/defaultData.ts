@@ -5,22 +5,22 @@ export const OFFICIAL_LOGO_URL =
 
 export const PAPER_SIZES: PaperSizeConfig[] = [
   {
-    id: 'a4-landscape',
-    name: 'A4 Landscape (Standar)',
-    widthMm: 297,
-    heightMm: 210,
-    description: 'Ukuran 297 × 210 mm (Kertas HVS/A4 umum, muat cetak amplop lebar atau lipatan raport)',
-  },
-  {
     id: 'dl-landscape',
-    name: 'DL Envelope (Amplop Standar Panjang)',
+    name: 'DL Envelope (220 × 110 mm) - Standar Amplop',
     widthMm: 220,
     heightMm: 110,
-    description: 'Ukuran 220 × 110 mm (Amplop dinas / amplop surat panjang standar)',
+    description: 'Ukuran 220 × 110 mm (Ukuran amplop dinas raport resmi)',
+  },
+  {
+    id: 'a4-landscape',
+    name: 'A4 Landscape (297 × 210 mm)',
+    widthMm: 297,
+    heightMm: 210,
+    description: 'Ukuran 297 × 210 mm (Kertas HVS/A4)',
   },
   {
     id: 'f4-landscape',
-    name: 'Folio / F4 Landscape',
+    name: 'Folio / F4 Landscape (330 × 215 mm)',
     widthMm: 330,
     heightMm: 215,
     description: 'Ukuran 330 × 215 mm (Kertas Folio / F4 standar Indonesia)',
@@ -46,7 +46,7 @@ export const DEFAULT_KOP_DATA: KopData = {
 };
 
 export const DEFAULT_SETTINGS: EnvelopeSettings = {
-  paperSizeId: 'a4-landscape',
+  paperSizeId: 'dl-landscape',
   defaultKelas: 'XI TKR 1',
   layoutStyle: 'official-box',
   showBoxAbsen: true,

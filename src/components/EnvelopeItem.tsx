@@ -21,8 +21,8 @@ export const EnvelopeItem: React.FC<EnvelopeItemProps> = ({
 }) => {
   const isDl = paper.id === 'dl-landscape';
 
-  // Format padding: DL is 110mm height so needs slightly tighter padding (6mm) vs A4 (10mm)
-  const paddingMm = isDl ? 6 : 10;
+  // Format padding: DL is 110mm height so needs tighter padding (5mm) vs A4 (10mm)
+  const paddingMm = isDl ? 5 : 10;
 
   return (
     <div
@@ -44,7 +44,7 @@ export const EnvelopeItem: React.FC<EnvelopeItemProps> = ({
     >
       {/* 1. KOP SURAT ATAS */}
       <div className="w-full flex-shrink-0">
-        <EnvelopeKop kop={kop} />
+        <EnvelopeKop kop={kop} isDl={isDl} />
       </div>
 
       {/* 2. BADAN AMPLOP */}

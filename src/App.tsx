@@ -69,7 +69,15 @@ export default function App() {
   const [settings, setSettings] = useState<EnvelopeSettings>(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEYS.SETTINGS);
-      if (saved) return JSON.parse(saved);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        return {
+          ...DEFAULT_SETTINGS,
+          ...parsed,
+          // Pastikan ukuran default adalah DL Envelope (220 x 110 mm)
+          paperSizeId: parsed.paperSizeId === 'a4-landscape' ? 'dl-landscape' : (parsed.paperSizeId || 'dl-landscape'),
+        };
+      }
     } catch (e) {
       console.warn('Failed to load settings from localStorage:', e);
     }
@@ -82,7 +90,7 @@ export default function App() {
   const [isImportModalOpen, setIsImportModalOpen] = useState(false);
   const [isKopModalOpen, setIsKopModalOpen] = useState(false);
   const [isDeployModalOpen, setIsDeployModalOpen] = useState(false);
-  const [zoomLevel, setZoomLevel] = useState<number>(0.75); // 0.5, 0.75, 1.0, etc.
+  const [zoomLevel, setZoomLevel] = useState<number>(0.9); // 0.9 fits DL Envelope beautifully
   const [singlePrintTarget, setSinglePrintTarget] = useState<Student | null>(null);
   const [isExportingPdf, setIsExportingPdf] = useState(false);
   const [pdfProgress, setPdfProgress] = useState<{ current: number; total: number } | null>(null);
@@ -130,7 +138,7 @@ export default function App() {
       document.head.appendChild(styleTag);
     }
 
-    const margin = settings.paperSizeId === 'dl-landscape' ? '6mm' : '10mm';
+    const margin = settings.paperSizeId === 'dl-landscape' ? '5mm' : '10mm';
     styleTag.innerHTML = `
       @media print {
         @page {
@@ -606,9 +614,9 @@ export default function App() {
                   <ZoomIn className="w-3.5 h-3.5" />
                 </button>
                 <button
-                  onClick={() => setZoomLevel(0.75)}
+                  onClick={() => setZoomLevel(1.0)}
                   className="p-1.5 hover:bg-slate-200 transition text-slate-600 border-l border-slate-200"
-                  title="Reset Zoom (75%)"
+                  title="Reset Zoom (100%)"
                 >
                   <Maximize2 className="w-3.5 h-3.5" />
                 </button>
