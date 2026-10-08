@@ -53,4 +53,9 @@ export interface EnvelopeSettings {
   kopOffsetX: number; // in mm (-25 to +25mm)
   kopOffsetY?: number; // in mm (-10 to +15mm)
   kopCenteredBalance: boolean; // True center balancing spacer
+  // Margin Kiri & Kanan Kop Surat (Mentok Tepi / Full-Bleed)
+  kopFullBleed?: boolean; // Mentok margin kiri dan kanan (0mm)
+  kopMarginLeft?: number; // in mm (0 to 25mm)
+  kopMarginRight?: number; // in mm (0 to 25mm)
+  kopPaddingTop?: number; // in mm (0 to 12mm)
 }

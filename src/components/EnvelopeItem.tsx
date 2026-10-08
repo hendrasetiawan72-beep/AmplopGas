@@ -20,9 +20,22 @@ export const EnvelopeItem: React.FC<EnvelopeItemProps> = ({
   isPrintVersion = false,
 }) => {
   const isDl = paper.id === 'dl-landscape';
+  const basePadX = isDl ? 6 : 10;
+  const basePadY = isDl ? 4 : 8;
 
   // Format padding: DL is 110mm height, so 4mm top/bottom & 6mm left/right fits perfectly
   const paddingStyle = isDl ? '4mm 6mm' : '8mm 10mm';
+
+  // Margin Kop Kiri & Kanan (Bisa mentok 0mm sampai ujung tepi kertas)
+  const kopMarginLeft = settings.kopFullBleed
+    ? 0
+    : (settings.kopMarginLeft !== undefined ? settings.kopMarginLeft : basePadX);
+
+  const kopMarginRight = settings.kopFullBleed
+    ? 0
+    : (settings.kopMarginRight !== undefined ? settings.kopMarginRight : basePadX);
+
+  const kopPaddingTop = settings.kopPaddingTop !== undefined ? settings.kopPaddingTop : 0;
 
   return (
     <div
@@ -46,8 +59,22 @@ export const EnvelopeItem: React.FC<EnvelopeItemProps> = ({
         transformOrigin: isPrintVersion && settings.rotate180 ? 'center center' : undefined,
       }}
     >
-      {/* 1. KOP SURAT ATAS */}
-      <div className="w-full flex-shrink-0" style={{ pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+      {/* 1. KOP SURAT ATAS (Bisa mentok margin kiri & kanan) */}
+      <div
+        className="flex-shrink-0 transition-all"
+        style={{
+          marginLeft: `-${basePadX}mm`,
+          marginRight: `-${basePadX}mm`,
+          marginTop: (settings.kopFullBleed || settings.kopPaddingTop) ? `-${basePadY}mm` : undefined,
+          paddingLeft: `${kopMarginLeft}mm`,
+          paddingRight: `${kopMarginRight}mm`,
+          paddingTop: `${kopPaddingTop}mm`,
+          width: `calc(100% + ${basePadX * 2}mm)`,
+          boxSizing: 'border-box',
+          pageBreakInside: 'avoid',
+          breakInside: 'avoid',
+        }}
+      >
         <EnvelopeKop
           kop={kop}
           isDl={isDl}

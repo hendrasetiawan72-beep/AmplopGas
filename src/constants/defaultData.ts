@@ -61,6 +61,10 @@ export const DEFAULT_SETTINGS: EnvelopeSettings = {
   kopOffsetX: 0,
   kopOffsetY: 0,
   kopCenteredBalance: true,
+  kopFullBleed: false,
+  kopMarginLeft: 6,
+  kopMarginRight: 6,
+  kopPaddingTop: 0,
 };
 
 export const SAMPLE_STUDENTS: Student[] = [
