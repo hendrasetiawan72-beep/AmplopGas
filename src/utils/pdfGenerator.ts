@@ -98,6 +98,15 @@ export async function generateDirectPdf(
       logging: false,
       windowWidth: el.scrollWidth,
       windowHeight: el.scrollHeight,
+      onclone: (clonedDoc) => {
+        const clonedEl = clonedDoc.getElementById(id);
+        if (clonedEl) {
+          clonedEl.style.transform = 'none';
+          clonedEl.style.boxShadow = 'none';
+          clonedEl.style.border = 'none';
+          clonedEl.style.margin = '0';
+        }
+      },
     });
 
     const imgData = canvas.toDataURL('image/jpeg', 0.98);
