@@ -1,0 +1,66 @@
+import { KopData, PaperSizeConfig, Student, EnvelopeSettings } from '../types';
+
+export const OFFICIAL_LOGO_URL =
+  'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh14eQT9MWn4-D1hdb8FisPsg0qK1iIvxXbMg0RGCvXFzUVWUt_KTiOWcEBzrJYxqALWV7_RPeowvTNfbyw-tbCeDb40lvY5jm_lWN5_jjeZko2SF82_wLRcW2-rBs6fWcauvugbRXBRODAeDb0FBkV81rSrgh6stKQG9ZWf5MU3qxTwiqdSEO9AaJ1EbUX/s480/44857.png';
+
+export const PAPER_SIZES: PaperSizeConfig[] = [
+  {
+    id: 'a4-landscape',
+    name: 'A4 Landscape (Standar)',
+    widthMm: 297,
+    heightMm: 210,
+    description: 'Ukuran 297 × 210 mm (Kertas HVS/A4 umum, muat cetak amplop lebar atau lipatan raport)',
+  },
+  {
+    id: 'dl-landscape',
+    name: 'DL Envelope (Amplop Standar Panjang)',
+    widthMm: 220,
+    heightMm: 110,
+    description: 'Ukuran 220 × 110 mm (Amplop dinas / amplop surat panjang standar)',
+  },
+  {
+    id: 'f4-landscape',
+    name: 'Folio / F4 Landscape',
+    widthMm: 330,
+    heightMm: 215,
+    description: 'Ukuran 330 × 215 mm (Kertas Folio / F4 standar Indonesia)',
+  },
+];
+
+export const DEFAULT_KOP_DATA: KopData = {
+  majlis: 'MAJLIS PENDIDIKAN DASAR DAN MENENGAH',
+  daerah: 'DAERAH MUHAMMADIYAH BATANG',
+  namaSekolah: 'SMK MUHAMMADIYAH BAWANG',
+  statusAkreditasi: 'TERAKREDITASI "A"',
+  showAkreditasi: false, // Image 2 doesn't show it, but Image 1 does - customizable!
+  alamat: 'Jl. Bawang-Sukorejo Km 01 Ds. Jlamprang Kec. Bawang Kab. Batang',
+  email: 'smkmutu1@yahoo.co.id',
+  website: 'www.smkmuhbawang.sch.id',
+  kodePos: '51274',
+  telp: '(0285) 4486909',
+  fax: '(0285) 4486899',
+  logoUrl: OFFICIAL_LOGO_URL,
+  lineStyle: 'double',
+};
+
+export const DEFAULT_SETTINGS: EnvelopeSettings = {
+  paperSizeId: 'a4-landscape',
+  defaultKelas: 'XI TKR 1',
+  layoutStyle: 'official-box',
+  showBoxAbsen: true,
+  showBoxWali: true,
+  fontSizeMultiplier: 1.0,
+};
+
+export const SAMPLE_STUDENTS: Student[] = [
+  { id: '1', absen: 1, nama: 'ABDULLAH KAFA BIHI', kelas: 'XI TKR 1' },
+  { id: '2', absen: 2, nama: 'ADITYA PRATAMA', kelas: 'XI TKR 1' },
+  { id: '3', absen: 3, nama: 'AHMAD FAUZI', kelas: 'XI TKR 1' },
+  { id: '4', absen: 4, nama: 'BAGAS SATRIA', kelas: 'XI TKR 1' },
+  { id: '5', absen: 5, nama: 'DIMAS WAHYU RAMADHAN', kelas: 'XI TKR 1' },
+  { id: '6', absen: 6, nama: 'FAJAR SHODIQ', kelas: 'XI TKR 1' },
+  { id: '7', absen: 7, nama: 'HILMAN MAULANA', kelas: 'XI TKR 1' },
+  { id: '8', absen: 8, nama: 'ILHAM NUR KHAKIM', kelas: 'XI TKR 1' },
+  { id: '9', absen: 9, nama: 'MUHAMMAD RIZKI FEBRIAN', kelas: 'XI TKR 1' },
+  { id: '10', absen: 10, nama: 'ZIDAN AL GHIFARI', kelas: 'XI TKR 1' },
+];

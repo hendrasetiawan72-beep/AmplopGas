@@ -1,0 +1,6 @@
+{
+  "name": "Pembuat Amplop Raport SMK Muhammadiyah Bawang",
+  "description": "Aplikasi cetak amplop raport siswa SMK Muhammadiyah Bawang siap cetak PDF A4 Landscape dan DL dengan kop surat resmi.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

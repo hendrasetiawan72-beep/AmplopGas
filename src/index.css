@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+}
+
+/* Print Specific Rules */
+@media screen {
+  .print-only {
+    display: none !important;
+  }
+}
+
+@media print {
+  @page {
+    size: 297mm 210mm; /* Default A4 Landscape */
+    margin: 10mm;
+  }
+
+  html, body {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Hide entire web application UI */
+  .no-print,
+  header,
+  nav,
+  aside,
+  button,
+  footer {
+    display: none !important;
+  }
+
+  /* Show only print container */
+  .print-only {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Exact page break per student envelope */
+  .envelope-page {
+    display: flex !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    page-break-after: always !important;
+    break-after: page !important;
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .envelope-page:last-child {
+    page-break-after: auto !important;
+    break-after: auto !important;
+  }
+}
