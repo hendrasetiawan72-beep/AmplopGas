@@ -138,12 +138,11 @@ export default function App() {
       document.head.appendChild(styleTag);
     }
 
-    const margin = settings.paperSizeId === 'dl-landscape' ? '5mm' : '10mm';
     styleTag.innerHTML = `
       @media print {
         @page {
-          size: ${currentPaper.widthMm}mm ${currentPaper.heightMm}mm;
-          margin: ${margin};
+          size: ${currentPaper.widthMm}mm ${currentPaper.heightMm}mm landscape;
+          margin: 0;
         }
       }
     `;
