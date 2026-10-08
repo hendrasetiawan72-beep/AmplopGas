@@ -6,14 +6,37 @@ interface EnvelopeKopProps {
   kop: KopData;
   scale?: number;
   isDl?: boolean;
+  logoSizeMm?: number;
+  logoOffsetX?: number;
+  kopOffsetX?: number;
+  kopOffsetY?: number;
+  kopCenteredBalance?: boolean;
 }
 
-export const EnvelopeKop: React.FC<EnvelopeKopProps> = ({ kop, isDl = false }) => {
+export const EnvelopeKop: React.FC<EnvelopeKopProps> = ({
+  kop,
+  isDl = false,
+  logoSizeMm,
+  logoOffsetX = 0,
+  kopOffsetX = 0,
+  kopOffsetY = 0,
+  kopCenteredBalance = true,
+}) => {
+  const currentLogoSizeMm = logoSizeMm || (isDl ? 21 : 26);
+
   if (kop.kopMode === 'image-banner' && (kop.kopImageUrl || kop.logoBase64 || kop.logoUrl)) {
     const bannerSrc = kop.logoBase64 || kop.kopImageUrl || kop.logoUrl;
     return (
       <div className="envelope-kop-container w-full text-black">
-        <div className="w-full flex items-center justify-center mb-0.5">
+        <div
+          className="w-full flex items-center justify-center mb-0.5"
+          style={{
+            transform:
+              kopOffsetX || kopOffsetY
+                ? `translate(${kopOffsetX}mm, ${kopOffsetY}mm)`
+                : undefined,
+          }}
+        >
           <img
             src={bannerSrc}
             alt="Kop Surat SMK Muhammadiyah Bawang"
@@ -38,23 +61,34 @@ export const EnvelopeKop: React.FC<EnvelopeKopProps> = ({ kop, isDl = false }) =
 
   return (
     <div className="envelope-kop-container w-full text-black">
-      {/* Header Grid: Logo Left, Text Centered */}
-      <div className={`flex items-center justify-between gap-2.5 ${isDl ? 'mb-0.5' : 'mb-2'}`}>
+      {/* Header Grid: Logo Left, Text Centered with right balancing spacer */}
+      <div
+        className={`flex items-center justify-between gap-2.5 ${isDl ? 'mb-0.5' : 'mb-2'}`}
+        style={{
+          transform:
+            kopOffsetX || kopOffsetY
+              ? `translate(${kopOffsetX}mm, ${kopOffsetY}mm)`
+              : undefined,
+        }}
+      >
         {/* Logo Left */}
-        <div className="flex-shrink-0 flex items-center justify-center pl-1">
+        <div
+          className="flex-shrink-0 flex items-center justify-center"
+          style={{
+            marginLeft: `${logoOffsetX}mm`,
+            width: `${currentLogoSizeMm}mm`,
+            height: `${currentLogoSizeMm}mm`,
+          }}
+        >
           <SchoolLogo
             src={kop.logoUrl}
             base64={kop.logoBase64}
-            className={
-              isDl
-                ? 'w-[20mm] h-[20mm] max-h-[78px] max-w-[78px]'
-                : 'w-[26mm] h-[26mm] max-h-[105px] max-w-[105px]'
-            }
+            className="w-full h-full object-contain"
           />
         </div>
 
         {/* Text Center */}
-        <div className="flex-1 text-center font-sans tracking-tight pr-3">
+        <div className="flex-1 text-center font-sans tracking-tight px-1">
           <h2
             className={`${
               isDl ? 'text-[9pt]' : 'text-[12pt]'
@@ -97,6 +131,17 @@ export const EnvelopeKop: React.FC<EnvelopeKopProps> = ({ kop, isDl = false }) =
             Kode Pos {kop.kodePos} Telp. {kop.telp} Fax. {kop.fax}
           </p>
         </div>
+
+        {/* Right Balancing Spacer to ensure pure mathematical centering */}
+        {kopCenteredBalance && (
+          <div
+            className="flex-shrink-0 select-none invisible pointer-events-none"
+            style={{
+              width: `${currentLogoSizeMm}mm`,
+              marginRight: `${logoOffsetX}mm`,
+            }}
+          />
+        )}
       </div>
 
       {/* Horizontal Divider Line */}

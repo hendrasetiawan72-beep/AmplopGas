@@ -53,6 +53,14 @@ export const DEFAULT_SETTINGS: EnvelopeSettings = {
   showBoxWali: true,
   fontSizeMultiplier: 1.0,
   rotate180: false,
+  absenPosition: 'left',
+  absenOffsetX: 0,
+  absenOffsetY: 0,
+  logoSizeMm: 21,
+  logoOffsetX: 0,
+  kopOffsetX: 0,
+  kopOffsetY: 0,
+  kopCenteredBalance: true,
 };
 
 export const SAMPLE_STUDENTS: Student[] = [

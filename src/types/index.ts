@@ -44,4 +44,13 @@ export interface EnvelopeSettings {
   showBoxWali: boolean;
   fontSizeMultiplier: number; // 0.9 to 1.2
   rotate180: boolean; // Rotate 180 degrees for Epson/rear tray printers
+  // Manual layout & positioning controls
+  absenPosition: 'left' | 'center' | 'right' | 'custom';
+  absenOffsetX: number; // in mm (0 to 140mm)
+  absenOffsetY?: number; // in mm (-5 to +20mm)
+  logoSizeMm: number; // in mm (16 to 36mm)
+  logoOffsetX: number; // in mm (0 to 30mm, shift logo inwards/center)
+  kopOffsetX: number; // in mm (-25 to +25mm)
+  kopOffsetY?: number; // in mm (-10 to +15mm)
+  kopCenteredBalance: boolean; // True center balancing spacer
 }

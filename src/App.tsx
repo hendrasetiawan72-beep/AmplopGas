@@ -15,6 +15,7 @@ import { ImportExportModal } from './components/ImportExportModal';
 import { KopConfigModal } from './components/KopConfigModal';
 import { DeployGuideModal } from './components/DeployGuideModal';
 import { SchoolLogo } from './components/SchoolLogo';
+import { ManualLayoutControls } from './components/ManualLayoutControls';
 import {
   triggerBrowserPrint,
   generateDirectPdf,
@@ -37,6 +38,7 @@ import {
   CheckCircle2,
   Loader2,
   RotateCw,
+  Sliders,
 } from 'lucide-react';
 
 const STORAGE_KEYS = {
@@ -540,6 +542,17 @@ export default function App() {
             </div>
           </div>
 
+          {/* BILAH PENGATURAN MANUAL POSISI LOGO, KOP & NOMOR ABSEN */}
+          <div id="manual-layout-controls-panel" className="scroll-mt-16">
+            <ManualLayoutControls
+              settings={settings}
+              onUpdateSettings={(updates) =>
+                setSettings((prev) => ({ ...prev, ...updates }))
+              }
+              isDl={currentPaper.id === 'dl-landscape'}
+            />
+          </div>
+
           {/* Edit Student Form (only visible when a student is currently being edited) */}
           {editingStudent && (
             <StudentForm
@@ -626,6 +639,20 @@ export default function App() {
               >
                 <RotateCw className="w-3.5 h-3.5 text-amber-700" />
                 <span>Putar 180°: {settings.rotate180 ? 'ON' : 'OFF'}</span>
+              </button>
+
+              <button
+                onClick={() => {
+                  if (window.innerWidth < 1024) setActiveMobileTab('form');
+                  setTimeout(() => {
+                    document.getElementById('manual-layout-controls-panel')?.scrollIntoView({ behavior: 'smooth' });
+                  }, 50);
+                }}
+                className="px-2.5 py-1 text-xs font-semibold text-purple-700 bg-purple-50 hover:bg-purple-100 border border-purple-200 rounded-lg transition flex items-center gap-1 cursor-pointer"
+                title="Atur posisi manual Logo, Kop, dan Nomor Absen agar lebih ke tengah"
+              >
+                <Sliders className="w-3.5 h-3.5 text-purple-700" />
+                <span>Atur Posisi Tengah</span>
               </button>
 
               <button

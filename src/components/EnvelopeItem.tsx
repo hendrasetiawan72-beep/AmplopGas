@@ -48,7 +48,15 @@ export const EnvelopeItem: React.FC<EnvelopeItemProps> = ({
     >
       {/* 1. KOP SURAT ATAS */}
       <div className="w-full flex-shrink-0" style={{ pageBreakInside: 'avoid', breakInside: 'avoid' }}>
-        <EnvelopeKop kop={kop} isDl={isDl} />
+        <EnvelopeKop
+          kop={kop}
+          isDl={isDl}
+          logoSizeMm={settings.logoSizeMm}
+          logoOffsetX={settings.logoOffsetX}
+          kopOffsetX={settings.kopOffsetX}
+          kopOffsetY={settings.kopOffsetY}
+          kopCenteredBalance={settings.kopCenteredBalance}
+        />
       </div>
 
       {/* 2. BADAN AMPLOP */}
@@ -56,26 +64,51 @@ export const EnvelopeItem: React.FC<EnvelopeItemProps> = ({
         className="w-full flex-1 flex flex-col justify-between pt-0.5 pb-1"
         style={{ pageBreakInside: 'avoid', breakInside: 'avoid' }}
       >
-        {/* Row 1: Nomor Absen Box (Left) */}
-        <div className="flex items-start justify-between w-full">
+        {/* Row 1: Nomor Absen Box (Dapat digeser ketengah sesuai pengaturan) */}
+        <div
+          className="flex items-start w-full"
+          style={{
+            justifyContent:
+              settings.absenPosition === 'center'
+                ? 'center'
+                : settings.layoutStyle === 'minimal-table'
+                ? 'space-between'
+                : 'flex-start',
+            marginTop: `${settings.absenOffsetY || 0}mm`,
+          }}
+        >
           {settings.showBoxAbsen ? (
             <div
-              className={`border-[1.8px] border-black rounded-lg flex items-center justify-center font-bold font-sans ${
+              className={`border-[1.8px] border-black rounded-lg flex items-center justify-center font-bold font-sans transition-all ${
                 isDl ? 'w-10 h-8 text-[11.5pt]' : 'w-13 h-10 text-[16pt]'
               }`}
+              style={{
+                marginLeft:
+                  settings.absenPosition === 'center'
+                    ? undefined
+                    : `${settings.absenOffsetX || 0}mm`,
+              }}
               title="Nomor Absen Siswa"
             >
               <span>{student.absen}</span>
             </div>
           ) : (
-            <div className="font-semibold text-[10pt]">
+            <div
+              className="font-semibold text-[10pt] transition-all"
+              style={{
+                marginLeft:
+                  settings.absenPosition === 'center'
+                    ? undefined
+                    : `${settings.absenOffsetX || 0}mm`,
+              }}
+            >
               No. Absen: <span className="font-bold">{student.absen}</span>
             </div>
           )}
 
           {/* If layout is minimal-table, show table on the right */}
           {settings.layoutStyle === 'minimal-table' && (
-            <div className="border border-black rounded-xl p-2.5 bg-white min-w-[220px]">
+            <div className="border border-black rounded-xl p-2.5 bg-white min-w-[220px] ml-auto">
               <table className="text-left font-sans text-[10.5pt]">
                 <tbody>
                   <tr>
